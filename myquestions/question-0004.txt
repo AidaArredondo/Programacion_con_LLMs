@@ -1,1 +1,21 @@
+PREGUNTA 4 — validar_con_kfold_estratificado
+Librerías: pandas, sklearn.
+El Problema:
+Tienes un DataFrame con features numéricas y una columna de etiquetas.
+Quieres evaluar la estabilidad de AgglomerativeClustering usando validación
+cruzada estratificada.
 
+La pureza de un fold: para cada cluster, encuentra la clase real más
+frecuente y suma esas frecuencias; divide por el total de muestras del fold.
+
+Tu Misión:
+Escribe una función llamada validar_con_kfold_estratificado(df, feature_cols,
+label_col, n_clusters, n_splits) que:
+  1. Extraiga X (feature_cols) e y (label_col) del DataFrame con pandas.
+  2. Cree StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42).
+  3. En cada fold aplique AgglomerativeClustering(n_clusters=n_clusters)
+     .fit_predict(X_test) y calcule la pureza del fold.
+  4. Devuelva un diccionario con:
+     - 'pureza_por_fold': lista de floats.
+     - 'pureza_media': promedio redondeado a 4 decimales.
+     - 'pureza_std': desviación estándar redondeada a 4 decimales.
