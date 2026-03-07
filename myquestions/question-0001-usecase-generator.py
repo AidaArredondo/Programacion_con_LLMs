@@ -46,35 +46,6 @@ def generar_caso_de_uso_reconstruir_serie_temporal():
     return input_data, df_g
 
 # ─────────────────────────────────────────────────────────────
-# FUNCIÓN SOLUCIÓN
-# Recibe el DataFrame sucio y devuelve uno limpio y escalado
-# ─────────────────────────────────────────────────────────────
-def reconstruir_serie_temporal(df, fecha_col, valor_col):
-    df = df.copy()
-
-    # Paso 1: convierte la columna de fecha a datetime
-    df[fecha_col] = pd.to_datetime(df[fecha_col])
-
-    # Paso 2: elimina filas duplicadas por fecha
-    df = df.drop_duplicates(subset=[fecha_col], keep='first')
-
-    # Paso 3: ordena por fecha y reinicia el índice
-    df = df.sort_values(fecha_col).reset_index(drop=True)
-
-    # Paso 4: rellena NaN con interpolación lineal
-    df[valor_col] = df[valor_col].interpolate(method='linear')
-
-    # Paso 5: imputa NaN residuales de los extremos con la media
-    imp = SimpleImputer(strategy='mean')
-    df[valor_col] = imp.fit_transform(df[[valor_col]])
-
-    # Paso 6: escala los valores a media 0 y std 1
-    scaler = StandardScaler()
-    df['valor_escalado'] = scaler.fit_transform(df[[valor_col]])
-
-    return df
-
-# ─────────────────────────────────────────────────────────────
 # PASO 3 — Comprueba que el generador funciona correctamente
 # ─────────────────────────────────────────────────────────────
 i, o = generar_caso_de_uso_reconstruir_serie_temporal()
