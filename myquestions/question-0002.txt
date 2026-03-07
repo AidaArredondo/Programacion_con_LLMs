@@ -1,6 +1,5 @@
 PREGUNTA 2 — pivotar_y_calcular_ranking
 Librerías: pandas, sklearn.
-
 El Problema:
 Tienes un DataFrame con resultados de experimentos: cada fila registra
 el nombre del experimento, la métrica evaluada y el valor obtenido.
