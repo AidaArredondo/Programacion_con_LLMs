@@ -1,1 +1,21 @@
+PREGUNTA 2 — pivotar_y_calcular_ranking
+Librerías: pandas, sklearn.
 
+El Problema:
+Tienes un DataFrame con resultados de experimentos: cada fila registra
+el nombre del experimento, la métrica evaluada y el valor obtenido.
+Necesitas transformar estos datos, normalizar la métrica objetivo y
+obtener un ranking de experimentos.
+
+Tu Misión:
+Escribe una función llamada pivotar_y_calcular_ranking(df, exp_col,
+metrica_col, valor_col, metrica_objetivo) que:
+  1. Pivote el DataFrame con pd.pivot_table (aggfunc='mean') para que
+     cada fila sea un experimento y cada columna una métrica.
+  2. Extraiga la columna metrica_objetivo.
+  3. Normalice esa columna a media 0 y std 1 usando StandardScaler de sklearn
+     y guárdala como 'score_normalizado'.
+  4. Ordene de mayor a menor 'score_normalizado'.
+  5. Añada columna 'ranking' con enteros consecutivos (1, 2, 3...).
+  6. Reinicie el índice y devuelva el DataFrame con columnas:
+     [exp_col, metrica_objetivo, 'score_normalizado', 'ranking'].
