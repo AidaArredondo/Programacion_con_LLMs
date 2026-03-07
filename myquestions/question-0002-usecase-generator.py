@@ -42,27 +42,6 @@ def generar_caso_de_uso_pivotar_y_calcular_ranking():
 
     return input_data, res
 
-# ─────────────────────────────────────────────────────────────
-# FUNCIÓN SOLUCIÓN
-# Recibe el DataFrame de experimentos y devuelve el ranking
-# ─────────────────────────────────────────────────────────────
-def pivotar_y_calcular_ranking(df, exp_col, metrica_col, valor_col, metrica_objetivo):
-    # Paso 1: pivota para tener experimentos como filas y métricas como columnas
-    pivot = pd.pivot_table(df, values=valor_col, index=exp_col,
-                           columns=metrica_col, aggfunc='mean')
-
-    # Paso 2: extrae solo la columna de la métrica objetivo
-    res = pivot[[metrica_objetivo]].copy()
-
-    # Paso 3: normaliza el score a media 0 y std 1
-    scaler = StandardScaler()
-    res['score_normalizado'] = scaler.fit_transform(res[[metrica_objetivo]])
-
-    # Paso 4: ordena de mayor a menor y asigna ranking
-    res = res.sort_values('score_normalizado', ascending=False)
-    res['ranking'] = range(1, len(res) + 1)
-
-    return res.reset_index()[[exp_col, metrica_objetivo, 'score_normalizado', 'ranking']]
 
 # ─────────────────────────────────────────────────────────────
 # PASO 3 — Comprueba que el generador funciona correctamente
