@@ -1,3 +1,5 @@
+PREGUNTA 1 — reconstruir_serie_temporal
+Librerías: pandas, sklearn.
 El Problema:
 Recibes un DataFrame con registros horarios de una estación meteorológica.
 Los datos tienen huecos (NaN), registros duplicados por timestamp y pueden
@@ -16,4 +18,4 @@ que realice lo siguiente:
      a media 0 y std 1 usando StandardScaler de sklearn.
   7. Devuelva el DataFrame resultante.
 
-Librerías: pandas, sklearn.
+
