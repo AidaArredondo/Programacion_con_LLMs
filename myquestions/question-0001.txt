@@ -1,1 +1,19 @@
+El Problema:
+Recibes un DataFrame con registros horarios de una estación meteorológica.
+Los datos tienen huecos (NaN), registros duplicados por timestamp y pueden
+estar desordenados. Necesitas limpiarlos y escalarlos para análisis posterior.
 
+Tu Misión:
+Escribe una función llamada reconstruir_serie_temporal(df, fecha_col, valor_col)
+que realice lo siguiente:
+  1. Convierta fecha_col a tipo datetime (pandas).
+  2. Elimine filas duplicadas por fecha_col conservando la primera ocurrencia (pandas).
+  3. Ordene por fecha_col ascendente y reinicie el índice (pandas).
+  4. Rellene NaN de valor_col con interpolación lineal (pandas interpolate).
+  5. Si quedaran NaN en los extremos, impútalos con la media usando
+     SimpleImputer(strategy='mean') de sklearn.
+  6. Añada una columna 'valor_escalado' con los valores de valor_col escalados
+     a media 0 y std 1 usando StandardScaler de sklearn.
+  7. Devuelva el DataFrame resultante.
+
+Librerías: pandas, sklearn.
