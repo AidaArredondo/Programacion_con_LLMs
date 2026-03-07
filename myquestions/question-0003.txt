@@ -1,1 +1,20 @@
+PREGUNTA 3 — transformar_y_ajustar_elasticnet
+Librerías: pandas, sklearn.
+El Problema:
+Recibes un DataFrame con features de distribución sesgada y una columna target.
+Antes de entrenar, necesitas limpiar el DataFrame con pandas y luego aplicar
+un pipeline sklearn para transformar y entrenar un modelo de regresión ElasticNet.
 
+Tu Misión:
+Escribe una función llamada transformar_y_ajustar_elasticnet(df_train, df_test,
+target_col, alpha, l1_ratio) que:
+  1. Separe features (X) y target (y) de df_train y df_test usando pandas.
+  2. Elimine con pandas las filas de df_train donde target tenga NaN.
+  3. Aplique QuantileTransformer(output_distribution='uniform', random_state=42)
+     a X_train y X_test (fit solo sobre train).
+  4. Entrene ElasticNet(alpha=alpha, l1_ratio=l1_ratio, max_iter=2000,
+     random_state=42) sobre los datos transformados.
+  5. Devuelva un diccionario con:
+     - 'predicciones': array numpy con predicciones sobre X_test.
+     - 'mae': MAE entre predicciones y y_test redondeado a 6 decimales.
+     - 'coeficientes': array numpy con los coeficientes del modelo.
