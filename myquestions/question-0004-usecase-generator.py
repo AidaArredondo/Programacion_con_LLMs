@@ -72,3 +72,4 @@ def validar_con_kfold_estratificado(df, feature_cols, label_col, n_clusters, n_s
         'pureza_por_fold': purezas,
         'pureza_media': round(float(np.mean(purezas)), 4),
         'pureza_std':   round(float(np.std(purezas)),  4)
+    }
