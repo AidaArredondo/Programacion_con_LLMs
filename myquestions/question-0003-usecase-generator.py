@@ -62,35 +62,6 @@ def generar_caso_de_uso_transformar_y_ajustar_elasticnet():
         'coeficientes': model.coef_
     }
 
-# ─────────────────────────────────────────────────────────────
-# FUNCIÓN SOLUCIÓN
-# Recibe los DataFrames, transforma y entrena ElasticNet
-# ─────────────────────────────────────────────────────────────
-def transformar_y_ajustar_elasticnet(df_train, df_test, target_col, alpha, l1_ratio):
-    # Paso 1: separa features y target, elimina NaN del target en train
-    feat_cols   = [c for c in df_train.columns if c != target_col]
-    df_tr_clean = df_train.dropna(subset=[target_col])
-    X_train_arr = df_tr_clean[feat_cols].to_numpy()
-    y_train_arr = df_tr_clean[target_col].to_numpy()
-    X_test_arr  = df_test[feat_cols].to_numpy()
-    y_test_arr  = df_test[target_col].to_numpy()
-
-    # Paso 2: transforma con QuantileTransformer (fit solo sobre train)
-    n_q   = min(1000, len(X_train_arr))
-    qt    = QuantileTransformer(n_quantiles=n_q, output_distribution='uniform', random_state=42)
-    Xtr_t = qt.fit_transform(X_train_arr)
-    Xte_t = qt.transform(X_test_arr)
-
-    # Paso 3: entrena ElasticNet y genera predicciones
-    model = ElasticNet(alpha=alpha, l1_ratio=l1_ratio, max_iter=2000, random_state=42)
-    model.fit(Xtr_t, y_train_arr)
-    preds = model.predict(Xte_t)
-
-    return {
-        'predicciones': preds,
-        'mae': round(float(mean_absolute_error(y_test_arr, preds)), 6),
-        'coeficientes': model.coef_
-    }
 
 # ─────────────────────────────────────────────────────────────
 # PASO 3 — Comprueba que el generador funciona correctamente
