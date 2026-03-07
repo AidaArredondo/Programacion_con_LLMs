@@ -54,37 +54,6 @@ def generar_caso_de_uso_validar_con_kfold_estratificado():
         'pureza_std':   round(float(np.std(purezas)),  4)
     }
 
-# ─────────────────────────────────────────────────────────────
-# FUNCIÓN SOLUCIÓN
-# Recibe el DataFrame y evalúa AgglomerativeClustering
-# con validación cruzada estratificada
-# ─────────────────────────────────────────────────────────────
-def validar_con_kfold_estratificado(df, feature_cols, label_col, n_clusters, n_splits):
-    # Paso 1: extrae X e y del DataFrame con pandas
-    X_arr = df[feature_cols].to_numpy()
-    y_arr = df[label_col].to_numpy()
-
-    # Paso 2: crea el StratifiedKFold
-    skf = StratifiedKFold(n_splits=n_splits, shuffle=True, random_state=42)
-
-    purezas = []
-    for _, test_idx in skf.split(X_arr, y_arr):
-        # Paso 3a: obtiene el subconjunto de test del fold
-        X_te, y_te = X_arr[test_idx], y_arr[test_idx]
-
-        # Paso 3b: aplica clustering sobre X_test
-        labels = AgglomerativeClustering(n_clusters=n_clusters).fit_predict(X_te)
-
-        # Paso 3c: calcula la pureza del fold
-        aciertos = sum(np.bincount(y_te[labels == c].astype(int)).max()
-                       for c in np.unique(labels))
-        purezas.append(aciertos / len(y_te))
-
-    return {
-        'pureza_por_fold': purezas,
-        'pureza_media': round(float(np.mean(purezas)), 4),
-        'pureza_std':   round(float(np.std(purezas)),  4)
-    }
 
 # ─────────────────────────────────────────────────────────────
 # PASO 3 — Comprueba que el generador funciona correctamente
